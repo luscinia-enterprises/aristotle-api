@@ -1,4 +1,5 @@
 import os
+import json
 
 from flask import Flask, jsonify
 from mongoengine import *
@@ -16,7 +17,9 @@ def index():
 
 @app.route('/resource/<resource_id>', methods=['GET'])
 def get_resource(resource_id):
-    return jsonify(Resource.objects(id(resource_id)))
+    resource = Resource.objects().get(pk=resource_id)
+    resource_json = resource.to_json()
+    return resource_json
 
 
 app.run()

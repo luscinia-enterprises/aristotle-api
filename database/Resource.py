@@ -6,10 +6,11 @@ from database.resource.Tags import Tags
 
 
 class Resource(Document):
-    id = ObjectIdField()
+    _class = StringField()
     uuid = UUIDField()
     name = StringField()
     content = StringField()
     learningStyle = EmbeddedDocumentField(LearningStyle)
     copyrightInfo = EmbeddedDocumentField(CopyrightInfo)
     tags = EmbeddedDocumentField(Tags)
+    meta = {'collection': 'resources'}

@@ -2,7 +2,7 @@ from mongoengine import *
 
 class Tags(EmbeddedDocument):
     subject = StringField()
-    gradelevel = StringField()
+    gradeLevel = StringField()
     curriculum = StringField()
     majorTopic = ListField(StringField())
     minorTopic = ListField(StringField())
