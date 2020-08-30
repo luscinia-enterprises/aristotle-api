@@ -19,11 +19,11 @@ from mongoengine import *
 
 
 class LearningStyle(EmbeddedDocument):
-    llss = IntField(required=True)
-    slss = IntField(required=True)
-    alss = IntField(required=True)
-    klss = IntField(required=True)
-    mlss = IntField(required=True)
-    sms = IntField(required=True)
-    qms = IntField(required=True)
-    tms = IntField(required=True)
+    llss = IntField()
+    slss = IntField()
+    alss = IntField()
+    klss = IntField()
+    mlss = IntField()
+    sms = IntField()
+    qms = IntField()
+    tms = IntField()

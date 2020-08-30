@@ -43,7 +43,7 @@ def get_resource(resource_id):
     except DoesNotExist as e:
         return e, 404
     except MultipleObjectsReturned as e:
-        return e, 501
+        return e, 500
     resource_json = resource.to_json()
     return Response(resource_json, mimetype="application/json", status=200)
 
@@ -94,7 +94,7 @@ def delete_resource(resource_id):
     except DoesNotExist as e:
         return e, 404
     except MultipleObjectsReturned as e:
-        return e, 501
+        return e, 500
     resource.delete()
     return "Deleted", 200
 

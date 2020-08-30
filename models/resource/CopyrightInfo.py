@@ -19,9 +19,9 @@ from mongoengine import *
 
 
 class CopyrightInfo(EmbeddedDocument):
-    url = StringField(required=True)
-    author = StringField(required=True)
-    publisher = StringField(required=True)
-    publication = DateTimeField(required=True)
-    update = DateTimeField(required=True)
-    location = StringField(required=True)
+    url = StringField()
+    author = StringField()
+    publisher = StringField()
+    publication = DateTimeField()
+    update = DateTimeField()
+    location = StringField()

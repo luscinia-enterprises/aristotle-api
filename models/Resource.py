@@ -36,12 +36,12 @@ from models.resource.Tags import Tags
 
 
 class Resource(Document):
-    _class = StringField(required=True)
-    content = StringField(required=True)
-    copyrightInfo = EmbeddedDocumentField(CopyrightInfo, required=True)
-    learningStyle = EmbeddedDocumentField(LearningStyle, required=True)
-    name = StringField(required=True)
-    tags = EmbeddedDocumentField(Tags, required=True)
-    uuid = UUIDField(binary=True, required=True)
+    _class = StringField()
+    content = StringField()
+    copyrightInfo = EmbeddedDocumentField(CopyrightInfo)
+    learningStyle = EmbeddedDocumentField(LearningStyle)
+    name = StringField()
+    tags = EmbeddedDocumentField(Tags)
+    uuid = UUIDField(binary=True)
     meta = {'collection': 'resources'}
 
