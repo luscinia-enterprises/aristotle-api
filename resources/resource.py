@@ -40,7 +40,8 @@ class ResourcesApi(Restful_Resource):
 
         resource = Resource(**body)
         resource.save()
-        return Response("Created", status=201)
+        id = resource.id
+        return {'id': str(id)}, 201
 
 
 class ResourceApi(Restful_Resource):
