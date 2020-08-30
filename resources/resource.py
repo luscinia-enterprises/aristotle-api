@@ -14,7 +14,7 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-from flask import Blueprint, Response, request
+from flask import Response, request
 from flask_restful import Resource as Restful_Resource
 from mongoengine import *
 from dateutil.parser import *

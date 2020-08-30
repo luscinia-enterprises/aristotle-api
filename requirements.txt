@@ -2,3 +2,4 @@ Flask~=1.1.2
 mongoengine~=0.20.0
 tensorflow~=2.3.0
 python-dateutil~=2.8.1
+Flask-RESTful~=0.3.8
