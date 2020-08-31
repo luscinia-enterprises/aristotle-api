@@ -72,6 +72,3 @@ Sample Post/Put data:
     }
 }
 ```
-
-Next step:
-- restructure program using flask-restful 
