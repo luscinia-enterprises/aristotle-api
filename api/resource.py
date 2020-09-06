@@ -23,27 +23,6 @@ import uuid
 from models.Resource import Resource
 
 
-class ResourcesApi(Restful_Resource):
-    def get(self):
-        # Retrieves all resources
-        resources = Resource.objects.to_json()
-        return Response(resources, mimetype="application/json", status=200)
-
-    def post(self):
-        # Creates new resource and returns the id if success
-        body = request.get_json()
-
-        # manually parse dates and uuid
-        body["copyrightInfo"]["publication"] = isoparse(body["copyrightInfo"]["publication"]["$date"])
-        body["copyrightInfo"]["update"] = isoparse(body["copyrightInfo"]["update"]["$date"])
-        body["uuid"] = uuid.UUID(body["uuid"]["$uuid"])
-
-        resource = Resource(**body)
-        resource.save()
-        id = resource.id
-        return {'id': str(id)}, 201
-
-
 class ResourceApi(Restful_Resource):
     def get(self, resource_id):
         # Retrieves resource by id

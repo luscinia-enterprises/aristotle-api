@@ -20,7 +20,7 @@ import os
 from flask import Flask
 from flask_restful import Api
 from mongoengine import *
-from controller.routes import initialize_routes
+from routes import initialize_routes
 
 app = Flask('aristotle')
 api = Api(app)
