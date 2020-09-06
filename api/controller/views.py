@@ -14,13 +14,47 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 from flask import Response, request
 from flask_restful import Resource as Restful_Resource
 from mongoengine import *
 from dateutil.parser import *
 import uuid
 
-from models.Resource import Resource
+from api.models.Resource import Resource
+
+
+class RootApi(Restful_Resource):
+    def get(self):
+        # Health check
+        return Response(status=200)
+
+
+class HealthApi(Restful_Resource):
+    def get(self):
+        # Health check
+        return Response(status=200)
+
+
+class ResourcesApi(Restful_Resource):
+    def get(self):
+        # Retrieves all resources
+        resources = Resource.objects.to_json()
+        return Response(resources, mimetype="application/json", status=200)
+
+    def post(self):
+        # Creates new resource and returns the id if success
+        body = request.get_json()
+
+        # manually parse dates and uuid
+        body["copyrightInfo"]["publication"] = isoparse(body["copyrightInfo"]["publication"]["$date"])
+        body["copyrightInfo"]["update"] = isoparse(body["copyrightInfo"]["update"]["$date"])
+        body["uuid"] = uuid.UUID(body["uuid"]["$uuid"])
+
+        resource = Resource(**body)
+        resource.save()
+        id = resource.id
+        return {'id': str(id)}, 201
 
 
 class ResourceApi(Restful_Resource):
@@ -66,3 +100,4 @@ class ResourceApi(Restful_Resource):
             return "Multiple objects returned. Database error. (This should never happen)", 500
         resource.delete()
         return "Deleted", 200
+
