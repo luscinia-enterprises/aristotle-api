@@ -30,9 +30,9 @@
 
 from mongoengine import *
 
-from models.general.LearningStyle import LearningStyle
-from models.resource.CopyrightInfo import CopyrightInfo
-from models.resource.Tags import Tags
+from api.models.general.LearningStyle import LearningStyle
+from api.models.resource.CopyrightInfo import CopyrightInfo
+from api.models.resource.Tags import Tags
 
 
 class Resource(Document):

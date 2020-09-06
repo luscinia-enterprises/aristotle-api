@@ -30,9 +30,9 @@
 
 from mongoengine import *
 
-from models.lesson.Resource import Resource
-from models.lesson.StudentPerformance import StudentPerformance
-from models.resource.Tags import Tags
+from api.models.lesson.Resource import Resource
+from api.models.lesson.StudentPerformance import StudentPerformance
+from api.models.resource.Tags import Tags
 
 
 class Lesson(Document):

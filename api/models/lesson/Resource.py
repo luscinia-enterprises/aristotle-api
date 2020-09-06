@@ -17,11 +17,13 @@
 
 from mongoengine import *
 
-from models.general import LearningStyle
+from api.models.general import LearningStyle
 
 
-class StudentPerformance(Document):
-    studentId = ObjectIdField()
+class Resource(Document):
+    resourceId = ObjectIdField()
     learningStyleDelta = EmbeddedDocumentField(LearningStyle)
     performance = IntField()
     response = IntField()
+    timesServed = IntField()
+    servedScore = IntField()

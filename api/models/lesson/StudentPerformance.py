@@ -15,18 +15,13 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from flask import Response
-from flask_restful import Resource as Restful_Resource
+from mongoengine import *
+
+from api.models.general import LearningStyle
 
 
-class Root(Restful_Resource):
-    def get(self):
-        # Health check
-        return Response(status=200)
-
-
-class Health(Restful_Resource):
-    def get(self):
-        # Health check
-        return Response(status=200)
-
+class StudentPerformance(Document):
+    studentId = ObjectIdField()
+    learningStyleDelta = EmbeddedDocumentField(LearningStyle)
+    performance = IntField()
+    response = IntField()

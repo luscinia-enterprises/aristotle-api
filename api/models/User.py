@@ -28,13 +28,12 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import json
 from mongoengine import *
 
-from models.general.LearningStyle import LearningStyle
-from models.user.LoginRecord import LoginRecord
-from models.user.SecurityQuestion import SecurityQuestion
-from models.user.Status import Status
+from api.models.general.LearningStyle import LearningStyle
+from api.models.user.LoginRecord import LoginRecord
+from api.models.user.SecurityQuestion import SecurityQuestion
+from api.models.user.Status import Status
 
 
 class User(Document):
