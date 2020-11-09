@@ -27,7 +27,7 @@ spec:
               cpu: "10m"
             limits:
               memory: "1024Mi"
-              cpu: "15m"
+              cpu: "150m"
           ports:
             - name: web
               containerPort: 5000
