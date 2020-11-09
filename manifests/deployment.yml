@@ -1,19 +1,49 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: "aristotleeducationplatform-034f"
+  name: aristotle-api
+  namespace: aristotle-api-staging
+  labels:
+    app: aristotle-api
+
 spec:
-  replicas: 2
   selector:
     matchLabels:
-      app: "aristotleeducationplatform-034f"
+      app: aristotle-api
   template:
     metadata:
       labels:
-        app: "aristotleeducationplatform-034f"
+        app: aristotle-api
     spec:
       containers:
-        - name: "aristotleeducationplatform-034f"
-          image: "aristotleplatform.azurecr.io/aristotleeducationplatform"
+        - name: aristotle-api
+          image: "aristotleplatform.azurecr.io/aristotle-api"
+          envFrom:
+          - secretRef:
+              name: aristotle-api-environment-staging
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"
           ports:
-          - containerPort: 5000
+            - name: web
+              containerPort: 5000
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 60
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 60
+            periodSeconds: 20
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 3502
+        runAsGroup: 3502

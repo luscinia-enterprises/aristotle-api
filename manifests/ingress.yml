@@ -1,0 +1,36 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: aristotle-api
+  namespace: aristotle-api-staging
+spec:
+  entryPoints:
+    - http
+  routes:
+  - kind: Rule
+    match: Host(`api.staging.aristotle.luscinia.ca`)
+    priority: 100
+    services:
+    - name: aristotle-api
+      port: 5000
+  middlewares:
+  - name: https-redirect
+    namespace: default
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: aristotle-api-tls
+  namespace: aristotle-api-staging
+spec:
+  entryPoints:
+    - https
+  routes:
+  - kind: Rule
+    match: Host(`api.staging.aristotle.luscinia.ca`)
+    services:
+    - name: aristotle-api
+      port: 5000
+  tls:
+    secretName: aristotle-cert-staging
