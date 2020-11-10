@@ -33,4 +33,4 @@ spec:
     - name: aristotle-api
       port: 5000
   tls:
-    secretName: aristotle-cert-staging
+    secretName: aristotle-cert

@@ -13,7 +13,6 @@ on:
   push:
     branches: [main]
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [main]
   schedule:
     - cron: '50 7 * * 1,2,3,4,5,6'
@@ -27,10 +26,9 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag localbuild/testimage:latest      
     - name: Run the local Anchore scan action itself with GitHub Advanced Security code scanning integration enabled
-      uses: anchore/scan-action@master
+      uses: anchore/scan-action@main
       with:
         image-reference: "localbuild/testimage:latest"
-        dockerfile-path: "Dockerfile"
         acs-report-enable: true
     - name: Upload Anchore Scan Report
       uses: github/codeql-action/upload-sarif@v1
