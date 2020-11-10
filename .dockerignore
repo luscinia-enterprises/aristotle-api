@@ -1,1 +1,8 @@
 venv/
+LICENSE
+README.md
+manifests/
+.github/
+Pipfile.lock
+Dockerfile
+requirements.txt

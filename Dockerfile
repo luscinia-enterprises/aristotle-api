@@ -1,10 +1,13 @@
-FROM python:3.8-alpine
+FROM python:3-alpine
 
-COPY ./requirements.txt /app/requirements.txt
+RUN pip install -U pipenv
+
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+COPY Pipfile .
+RUN pipenv lock
+RUN pipenv install --ignore-pipfile
 
-COPY . /app
+COPY . .
 
-ENTRYPOINT ["python", "app.py"]
+ENTRYPOINT ["pipenv", "run", "gunicorn", "--bind", ":5000", "app:app"]
