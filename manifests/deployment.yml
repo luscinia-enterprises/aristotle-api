@@ -24,10 +24,10 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "10m"
+              cpu: "25m"
             limits:
               memory: "1024Mi"
-              cpu: "150m"
+              cpu: "250m"
           ports:
             - name: web
               containerPort: 5000
