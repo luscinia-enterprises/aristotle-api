@@ -43,7 +43,3 @@ spec:
               port: 5000
             initialDelaySeconds: 60
             periodSeconds: 20
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 3502
-        runAsGroup: 3502
