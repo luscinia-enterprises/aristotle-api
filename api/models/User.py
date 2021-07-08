@@ -37,7 +37,7 @@ from api.models.user.Status import Status
 
 
 class User(Document):
-    id = ObjectIdField()
+    _id = ObjectIdField()
     preferredName = StringField()
     firstName = StringField()
     middleName = StringField()
@@ -47,6 +47,7 @@ class User(Document):
     teachers = ListField(StringField())
     parents = ListField(StringField())
     students = ListField(StringField())
+    classicGradeLevel = IntField()
     accountCreated = DateTimeField()
     dateOfBirth = DateTimeField()
     email = StringField()
@@ -63,5 +64,8 @@ class User(Document):
     method2FA = StringField()
     secret2FA = StringField()
     learningStyle = EmbeddedDocumentField(LearningStyle)
+    uuid = UUIDField(binary=True)
+    _class = StringField()
+    meta = {'collection': 'users'}
 
 
