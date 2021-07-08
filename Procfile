@@ -1,1 +1,1 @@
-web: `pipenv run gunicorn --bind :80 app:app`
+web: `pipenv run gunicorn --bind :5000 app:app`
