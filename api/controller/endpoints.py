@@ -15,7 +15,6 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from bson.objectid import ObjectId
 from flask import Response, request
 from flask_restful import Resource as Restful_Resource
 from mongoengine import *
@@ -126,7 +125,7 @@ class StudentApi(Restful_Resource):
     # Retrieves learningstyle by student id
     def get(self, student_id):
         try:
-            user = User.objects.get(firstName="Baz")
+            user = User.objects.get(_id=student_id)
         except DoesNotExist:
             return "No student found", 404
         except MultipleObjectsReturned:
