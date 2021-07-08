@@ -20,8 +20,10 @@ from flask_restful import Resource as Restful_Resource
 from mongoengine import *
 from dateutil.parser import *
 import uuid
+import json
 
 from api.models.Resource import Resource
+from api.models.User import User
 
 
 class RootApi(Restful_Resource):
@@ -55,6 +57,23 @@ class ResourcesApi(Restful_Resource):
         resource.save()
         id = resource.id
         return {'id': str(id)}, 201
+
+
+class LearningStylesAPI(Restful_Resource):
+    # Retrieves all resources filtered to only id and learningstyle
+    def get(self):
+        resources = Resource.objects.to_json()
+        json_resources = json.loads(resources)
+        filtered_resources = []
+
+        for resource in json_resources:
+            filtered_resources.append(
+                {
+                    "_id": resource['_id'],
+                    "learningStyle": resource['learningStyle']
+                })
+    
+        return filtered_resources, 200
 
 
 class ResourceApi(Restful_Resource):
@@ -101,3 +120,17 @@ class ResourceApi(Restful_Resource):
         resource.delete()
         return "Deleted", 200
 
+
+class StudentApi(Restful_Resource):
+    # Retrieves learningstyle by student id
+    def get(self, student_id):
+        try:
+            user = User.objects.get(_id=student_id)
+        except DoesNotExist:
+            return "No student found", 404
+        except MultipleObjectsReturned:
+            return "Multiple objects returned. Database error. (This should never happen)", 500
+
+        learningstyle = user.learningStyle.to_json()
+
+        return Response(learningstyle, mimetype="application/json", status=200)
