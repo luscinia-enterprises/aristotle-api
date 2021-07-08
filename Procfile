@@ -1,0 +1,1 @@
+web: `pipenv run gunicorn --bind :80 app:app`
