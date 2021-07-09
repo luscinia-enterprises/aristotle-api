@@ -1,1 +1,1 @@
-web: `pipenv run gunicorn --bind 0.0.0.0:${PORT} app:app`
+web: `pipenv run gunicorn app:app`
