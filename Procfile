@@ -1,1 +1,1 @@
-worker: `pipenv run gunicorn --bind :5000 app:app`
+web: `pipenv run gunicorn --bind 0.0.0.0:${PORT} app:app`
