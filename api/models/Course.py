@@ -19,7 +19,6 @@ from mongoengine import *
 
 
 class Course(Document):
-    id = ObjectIdField()
     name = StringField()
     gradeLevel = IntField()
     curriculum = StringField()
