@@ -55,8 +55,8 @@ class ResourcesApi(Restful_Resource):
 
         resource = Resource(**body)
         resource.save()
-        id = resource.id
-        return {'id': str(id)}, 201
+        id = resource.pk
+        return {'_id': str(id)}, 201
 
 
 class LearningStylesAPI(Restful_Resource):
@@ -125,7 +125,7 @@ class StudentApi(Restful_Resource):
     # Retrieves learningstyle by student id
     def get(self, student_id):
         try:
-            user = User.objects.get(_id=student_id)
+            user = User.objects.get(pk=student_id)
         except DoesNotExist:
             return "No student found", 404
         except MultipleObjectsReturned:

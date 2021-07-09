@@ -37,7 +37,6 @@ from api.models.user.Status import Status
 
 
 class User(Document):
-    _id = ObjectIdField()
     preferredName = StringField()
     firstName = StringField()
     middleName = StringField()
