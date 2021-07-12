@@ -36,7 +36,6 @@ from api.models.resource.Tags import Tags
 
 
 class Lesson(Document):
-    id = ObjectIdField()
     courseId = ObjectIdField()
     resources = ListField(Resource)
     students = ListField(ObjectIdField())
