@@ -6,15 +6,17 @@ name = "pypi"
 [packages]
 mongoengine = "~=0.20.0"
 python-dateutil = "~=2.8.1"
-gunicorn = "~=20.0.4"
 Flask = "~=1.1.2"
 Flask-RESTful = "~=0.3.8"
+gunicorn = "~=20.0.4"
+dnspython = "~=2.1.0"
 
 [dev-packages]
 mongoengine = "*"
 python-dateutil = "*"
 Flask = "*"
 Flask-RESTful = "*"
+dnspython = "~=2.1.0"
 
 [requires]
 python_version = "3.9"
