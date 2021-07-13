@@ -17,13 +17,14 @@
 
 from mongoengine import *
 
-from api.models.general import LearningStyle
 
-
-class Resource(Document):
-    resourceId = ObjectIdField()
-    learningStyleDelta = EmbeddedDocumentField(LearningStyle)
-    performance = IntField()
-    response = IntField()
-    timesServed = IntField()
-    servedScore = IntField()
+class Status(EmbeddedDocument):
+    accountLocked = BooleanField()
+    accountSuspended = BooleanField()
+    accountBlocked = BooleanField()
+    accountExpired = BooleanField()
+    credentialsExpired = BooleanField()
+    pendingDeletion = BooleanField()
+    pendingConfirmation = BooleanField()
+    pendingAction = BooleanField()
+    detailedStatus = StringField()

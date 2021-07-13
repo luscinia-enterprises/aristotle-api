@@ -1,5 +1,5 @@
 #  Aristotle Learning Platform: Luscinia Enterprises Assn.
-#  Copyright (C) 2020
+#  Copyright (C) 2021
 #      1261612 B.C. LTD.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -15,16 +15,16 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from mongoengine import *
+import json
 
 
-class Course(Document):
-    name = StringField()
-    gradeLevel = IntField()
-    curriculum = StringField()
-    subject = StringField()
-    teacher = ObjectIdField()
-    users = ListField(ObjectIdField())
-    lessons = ListField(ObjectIdField())
-    created = DateField()
-    expires = DateField()
+def filterResources(resources):
+    json_resources = json.loads(resources)
+    filtered_resources = []
+    for resource in json_resources:
+        filtered_resources.append(
+            {
+                "_id": resource['_id'],
+                "learningStyle": resource['learningStyle']
+            })
+    return filtered_resources

@@ -17,10 +17,7 @@
 
 from mongoengine import *
 
-class Status(EmbeddedDocument):
-    accountLocked = BooleanField()
-    accountSuspended = BooleanField()
-    accountBlocked = BooleanField()
-    pendingDeletion = BooleanField()
-    pendingConfirmation = BooleanField()
-    pendingAction = BooleanField()
+
+class SecurityQuestion(EmbeddedDocument):
+    question = StringField()
+    answer = StringField()

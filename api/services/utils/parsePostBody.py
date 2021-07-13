@@ -1,5 +1,5 @@
 #  Aristotle Learning Platform: Luscinia Enterprises Assn.
-#  Copyright (C) 2020
+#  Copyright (C) 2021
 #      1261612 B.C. LTD.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -15,10 +15,13 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from mongoengine import *
+import uuid
 
-class LoginRecord(EmbeddedDocument):
-    eventTime = DateTimeField()
-    requestAddress = StringField()
-    deviceType = StringField()
-    location = StringField()
+from dateutil.parser import isoparse
+
+
+# manually parses dates and uuid
+def parsePostBody(body):
+    body["copyrightInfo"]["publication"] = isoparse(body["copyrightInfo"]["publication"]["$date"])
+    body["copyrightInfo"]["update"] = isoparse(body["copyrightInfo"]["update"]["$date"])
+    body["uuid"] = uuid.UUID(body["uuid"]["$uuid"])
