@@ -29,4 +29,4 @@ connect(host=os.getenv('MONGODB_URL', 'mongodb://localhost:27017/aristotle'))
 initialize_routes(api)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
