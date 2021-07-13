@@ -17,6 +17,9 @@
 
 from mongoengine import *
 
-class SecurityQuestion(EmbeddedDocument):
-    question = StringField()
-    answer = StringField()
+
+class LoginRecord(EmbeddedDocument):
+    eventTime = DateTimeField()
+    requestAddress = StringField()
+    deviceType = StringField()
+    location = StringField()

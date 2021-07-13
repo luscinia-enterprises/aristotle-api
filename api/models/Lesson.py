@@ -30,14 +30,14 @@
 
 from mongoengine import *
 
-from api.models.lesson.Resource import Resource
-from api.models.lesson.StudentPerformance import StudentPerformance
-from api.models.resource.Tags import Tags
+from api.models.lessonEmbeds.LessonResource import LessonResource
+from api.models.lessonEmbeds.StudentPerformance import StudentPerformance
+from api.models.resourceEmbeds.Tags import Tags
 
 
 class Lesson(Document):
     courseId = ObjectIdField()
-    resources = ListField(Resource)
+    resources = ListField(LessonResource)
     students = ListField(ObjectIdField())
     studentPerformance = ListField(StudentPerformance)
     tags = EmbeddedDocumentField(Tags)

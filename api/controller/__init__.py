@@ -15,13 +15,16 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from mongoengine import *
+from .resource import *
+from .root import *
+from .student import *
 
-from api.models.general import LearningStyle
 
-
-class StudentPerformance(Document):
-    studentId = ObjectIdField()
-    learningStyleDelta = EmbeddedDocumentField(LearningStyle)
-    performance = IntField()
-    response = IntField()
+def initialize_routes(api):
+    api.add_resource(Root, '/')
+    api.add_resource(HealthCheck, '/health')
+    api.add_resource(Resources, '/resources')
+    api.add_resource(ResourceLearningStyles, '/resources/learningstyles')
+    api.add_resource(ResourceById, '/resources/<resource_id>')
+    api.add_resource(StudentLearningStyleById, '/students/<student_id>/learningstyle')
+    api.add_resource(Students, '/students')

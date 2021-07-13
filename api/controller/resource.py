@@ -1,5 +1,5 @@
 #  Aristotle Learning Platform: Luscinia Enterprises Assn.
-#  Copyright (C) 2020
+#  Copyright (C) 2021
 #      1261612 B.C. LTD.
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -18,27 +18,14 @@
 from flask import Response, request
 from flask_restful import Resource as Restful_Resource
 from mongoengine import *
-from dateutil.parser import *
-import uuid
-import json
 
 from api.models.Resource import Resource
-from api.models.User import User
+from ..services.utils.filteredResources import filterResources
+from ..services.utils.parsePostBody import parsePostBody
+from ..services.utils.parsePutBody import parsePutBody
 
 
-class RootApi(Restful_Resource):
-    def get(self):
-        # Health check
-        return Response(status=200)
-
-
-class HealthApi(Restful_Resource):
-    def get(self):
-        # Health check
-        return Response(status=200)
-
-
-class ResourcesApi(Restful_Resource):
+class Resources(Restful_Resource):
     def get(self):
         # Retrieves all resources
         resources = Resource.objects.to_json()
@@ -48,10 +35,7 @@ class ResourcesApi(Restful_Resource):
         # Creates new resource and returns the id if success
         body = request.get_json()
 
-        # manually parse dates and uuid
-        body["copyrightInfo"]["publication"] = isoparse(body["copyrightInfo"]["publication"]["$date"])
-        body["copyrightInfo"]["update"] = isoparse(body["copyrightInfo"]["update"]["$date"])
-        body["uuid"] = uuid.UUID(body["uuid"]["$uuid"])
+        parsePostBody(body)
 
         resource = Resource(**body)
         resource.save()
@@ -59,24 +43,7 @@ class ResourcesApi(Restful_Resource):
         return {'_id': str(id)}, 201
 
 
-class LearningStylesAPI(Restful_Resource):
-    # Retrieves all resources filtered to only id and learningstyle
-    def get(self):
-        resources = Resource.objects.to_json()
-        json_resources = json.loads(resources)
-        filtered_resources = []
-
-        for resource in json_resources:
-            filtered_resources.append(
-                {
-                    "_id": resource['_id'],
-                    "learningStyle": resource['learningStyle']
-                })
-    
-        return filtered_resources, 200
-
-
-class ResourceApi(Restful_Resource):
+class ResourceById(Restful_Resource):
     def get(self, resource_id):
         # Retrieves resource by id
         try:
@@ -96,13 +63,7 @@ class ResourceApi(Restful_Resource):
         except DoesNotExist:
             return "No resource found", 404
         try:
-            # manually parse dates and uuid if needed
-            if "copyrightInfo" in body and "publication" in body["copyrightInfo"]:
-                body["copyrightInfo"]["publication"] = isoparse(body["copyrightInfo"]["publication"]["$date"])
-            if "copyrightInfo" in body and "update" in body["copyrightInfo"]:
-                body["copyrightInfo"]["update"] = isoparse(body["copyrightInfo"]["update"]["$date"])
-            if "uuid" in body:
-                body["uuid"] = uuid.UUID(body["uuid"]["$uuid"])
+            parsePutBody(body)
 
             resource.update(**body)
         except InvalidQueryError:
@@ -121,16 +82,10 @@ class ResourceApi(Restful_Resource):
         return "Deleted", 200
 
 
-class StudentApi(Restful_Resource):
-    # Retrieves learningstyle by student id
-    def get(self, student_id):
-        try:
-            user = User.objects.get(pk=student_id)
-        except DoesNotExist:
-            return "No student found", 404
-        except MultipleObjectsReturned:
-            return "Multiple objects returned. Database error. (This should never happen)", 500
+class ResourceLearningStyles(Restful_Resource):
+    # Retrieves all resources filtered to only id and learningstyle
+    def get(self):
+        resources = Resource.objects.to_json()
+        filtered_resources = filterResources(resources)
 
-        learningstyle = user.learningStyle.to_json()
-
-        return Response(learningstyle, mimetype="application/json", status=200)
+        return filtered_resources, 200

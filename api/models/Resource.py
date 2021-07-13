@@ -30,9 +30,9 @@
 
 from mongoengine import *
 
-from api.models.general.LearningStyle import LearningStyle
-from api.models.resource.CopyrightInfo import CopyrightInfo
-from api.models.resource.Tags import Tags
+from api.models.generalEmbeds.LearningStyle import LearningStyle
+from api.models.resourceEmbeds.CopyrightInfo import CopyrightInfo
+from api.models.resourceEmbeds.Tags import Tags
 
 
 class Resource(Document):
@@ -44,4 +44,3 @@ class Resource(Document):
     tags = EmbeddedDocumentField(Tags)
     uuid = UUIDField(binary=True)
     meta = {'collection': 'resources'}
-

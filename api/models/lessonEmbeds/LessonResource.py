@@ -17,14 +17,13 @@
 
 from mongoengine import *
 
+from api.models.generalEmbeds import LearningStyle
 
-class Course(Document):
-    name = StringField()
-    gradeLevel = IntField()
-    curriculum = StringField()
-    subject = StringField()
-    teacher = ObjectIdField()
-    users = ListField(ObjectIdField())
-    lessons = ListField(ObjectIdField())
-    created = DateField()
-    expires = DateField()
+
+class LessonResource(Document):
+    resourceId = ObjectIdField()
+    learningStyleDelta = EmbeddedDocumentField(LearningStyle)
+    performance = IntField()
+    response = IntField()
+    timesServed = IntField()
+    servedScore = IntField()
