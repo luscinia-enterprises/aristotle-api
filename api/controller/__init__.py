@@ -28,3 +28,9 @@ def initialize_routes(api):
     api.add_resource(ResourceById, '/resources/<resource_id>')
     api.add_resource(StudentLearningStyleById, '/students/<student_id>/learningstyle')
     api.add_resource(Students, '/students')
+
+    #Testing
+    from api.services.auth.auth import TestToken
+    from api.services.auth.auth import ProtectedRoute
+    api.add_resource(TestToken, '/token/<key>/<timeout>')
+    api.add_resource(ProtectedRoute, '/protected')
