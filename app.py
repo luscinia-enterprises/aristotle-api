@@ -30,8 +30,10 @@ connect(host=os.getenv('MONGODB_URL', 'mongodb://localhost:27017/aristotle'))
 config = {
     'CACHE_TYPE': 'RedisCache',
     'CACHE_REDIS_HOST': os.getenv('REDIS_HOST', 'localhost'),
-    'CACHE_REDIS_PORT': os.getenv('REDIS_PORT', '6379')}
+    'CACHE_REDIS_PORT': os.getenv('REDIS_PORT', '6379'),
+    'CACHE_KEY_PREFIX': ''}
 cache.init_app(app, config= config)
+
 initialize_routes(api)
 
 if __name__ == '__main__':
