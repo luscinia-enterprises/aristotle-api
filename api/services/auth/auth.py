@@ -14,10 +14,10 @@ def token_required(endpoint):
     def authorize(*args, **kwargs):
         # Get token_id from authorization header
         token_id = request.headers.get('Authorization')
-        token_id = token_id.removeprefix('Bearer ')
         # No token_id in authorization header
         if not token_id:
             return "Missing token id", 401 
+        token_id = token_id.removeprefix('Bearer ')
         
         # Get token from cache using token_id as key
         token = cache.get("lusciniaAuthorizationToken_" + token_id)
