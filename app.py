@@ -27,7 +27,11 @@ app = Flask('aristotle')
 api = Api(app)
 connect(host=os.getenv('MONGODB_URL', 'mongodb://localhost:27017/aristotle'))
 
-cache.init_app(app, config={'CACHE_TYPE': 'RedisCache', 'CACHE_REDIS_HOST': 'localhost', 'CACHE_REDIS_PORT': '6379'})
+config = {
+    'CACHE_TYPE': 'RedisCache',
+    'CACHE_REDIS_HOST': os.getenv('REDIS_HOST', 'localhost'),
+    'CACHE_REDIS_PORT': os.getenv('REDIS_PORT', '6379')}
+cache.init_app(app, config= config)
 initialize_routes(api)
 
 if __name__ == '__main__':
