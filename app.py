@@ -21,10 +21,18 @@ from flask import Flask
 from flask_restful import Api
 from mongoengine import *
 from api.controller.__init__ import initialize_routes
+from api.services.utils.cache import cache
 
 app = Flask('aristotle')
 api = Api(app)
 connect(host=os.getenv('MONGODB_URL', 'mongodb://localhost:27017/aristotle'))
+
+config = {
+    'CACHE_TYPE': 'RedisCache',
+    'CACHE_REDIS_HOST': os.getenv('REDIS_HOST', 'localhost'),
+    'CACHE_REDIS_PORT': os.getenv('REDIS_PORT', '6379'),
+    'CACHE_KEY_PREFIX': ''}
+cache.init_app(app, config= config)
 
 initialize_routes(api)
 

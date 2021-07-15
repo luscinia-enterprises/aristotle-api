@@ -18,6 +18,8 @@
 from .resource import *
 from .root import *
 from .student import *
+#Testing
+from api.services.auth.auth import *
 
 
 def initialize_routes(api):
@@ -28,3 +30,9 @@ def initialize_routes(api):
     api.add_resource(ResourceById, '/resources/<resource_id>')
     api.add_resource(StudentLearningStyleById, '/students/<student_id>/learningstyle')
     api.add_resource(Students, '/students')
+
+    #Testing
+    # Get and create tokens, timeout in seconds
+    api.add_resource(TestToken, '/token/<token_id>/<timeout>')
+    # Enpoint that requires a token to access
+    api.add_resource(ProtectedRoute, '/protected')

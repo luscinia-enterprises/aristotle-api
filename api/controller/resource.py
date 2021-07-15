@@ -20,6 +20,7 @@ from flask_restful import Resource as Restful_Resource
 from mongoengine import *
 
 from api.models.Resource import Resource
+from ..services.utils.cache import cache
 from ..services.utils.filteredResources import filterResources
 from ..services.utils.parsePostBody import parsePostBody
 from ..services.utils.parsePutBody import parsePutBody
