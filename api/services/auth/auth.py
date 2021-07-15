@@ -78,6 +78,3 @@ class ProtectedRoute(Restful_Resource):
 
     def post(self):
         return "Protected post", 201
-
-
-
